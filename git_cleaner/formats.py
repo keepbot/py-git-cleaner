@@ -13,6 +13,7 @@ This branch should be removed or protected.
 
 Information
   * Branch Name: {branch}
+  * Branch URL: {url_branch}
   * Last commit date: {date}
   * Merged: {merged}
 
@@ -38,6 +39,7 @@ This branch was removed due git cleanup process.
 
 Information
   * Branch Name: {branch}
+  * Branch URL: {url_branch}
   * Last commit date: {date}
   * Merged: {merged}
 

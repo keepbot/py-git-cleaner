@@ -26,6 +26,7 @@ def construct_repo_url(token, provider, user, repo):
 def cleanup_repo(path):
     ''' Remove downloaded repository from temporary folder '''
     print('Cleaning up cloned repo: {}'.format(path))
+    os.chdir(tempfile.gettempdir())
     shutil.rmtree(path)
 
 
@@ -110,12 +111,7 @@ def list_branches(target='master', age=0, merged=True):
 def notify_developers(target='master', age=180, merged=True):
     '''  Nnotify developers about outdated branches '''
     fmt_message = git_cleaner.formats.fmt_notification_message
-    url = (
-        "https://"
-        + CONFIG['git_provider']
-        + "/" + CONFIG['git_user']
-        + "/" + CONFIG['git_repo_name']
-        + "/wiki/Protected_branches")
+    url = ("https://" + CONFIG['git_provider'] + "/" + CONFIG['git_user'] + "/" + CONFIG['git_repo_name'])
 
     now = datetime.utcnow().replace(tzinfo=pytz.utc)
     delta = timedelta(age)
@@ -133,7 +129,8 @@ def notify_developers(target='master', age=180, merged=True):
                 date=date,
                 merged=merged,
                 repo=CONFIG['git_repo_name'],
-                url=url
+                url=url + "/wiki/Protected_branches",
+                url_branch=url + "/branch/" + branch[15:]
             )
             send_message(message, git_data[2])
 
@@ -141,12 +138,7 @@ def notify_developers(target='master', age=180, merged=True):
 def remove_branches(target='master', age=180, merged=True):
     ''' Remove outdated branches and notify last committer '''
     fmt_message = git_cleaner.formats.fmt_delete_message
-    url = (
-        "https://"
-        + CONFIG['git_provider']
-        + "/" + CONFIG['git_user']
-        + "/" + CONFIG['git_repo_name']
-        + "/wiki/Protected_branches")
+    url = ("https://" + CONFIG['git_provider'] + "/" + CONFIG['git_user'] + "/" + CONFIG['git_repo_name'])
 
     now = datetime.utcnow().replace(tzinfo=pytz.utc)
     delta = timedelta(age)
@@ -165,7 +157,8 @@ def remove_branches(target='master', age=180, merged=True):
                 date=date,
                 merged=merged,
                 repo=CONFIG['git_repo_name'],
-                url=url
+                url=url + "/wiki/Protected_branches",
+                url_branch=url + "/branch/" + branch[15:]
             )
             send_message(message, git_data[2])
 
