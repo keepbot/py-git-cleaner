@@ -61,19 +61,25 @@ def get_branch_list(target, git_filter='--merged'):
 
 
 def get_git_data_runner(branch, dest_dict: dict):
-    last_commit_date = subprocess.run(
-        ['git', 'log', '-1', '--format=%ci', branch],
+    output = subprocess.run(
+        ['git', 'log', '-1', '--no-merges', '--simplify-merges', '--format=%ci;%aN;%aE', branch],
         stdout=subprocess.PIPE, encoding='utf-8')
-    last_commit_name = subprocess.run(
-        ['git', 'log', '-1', '--format=%aN', branch],
-        stdout=subprocess.PIPE, encoding='utf-8')
-    last_commit_email = subprocess.run(
-        ['git', 'log', '-1', '--format=%aE', branch],
-        stdout=subprocess.PIPE, encoding='utf-8')
-    dest_dict[branch] = (
-        last_commit_date.stdout.strip(),
-        last_commit_name.stdout.strip(),
-        last_commit_email.stdout.strip())
+    last_commit_date, last_commit_name, last_commit_email = output.stdout.strip().split(';')
+    dest_dict[branch] = (last_commit_date, last_commit_name, last_commit_email)
+
+    # last_commit_date = subprocess.run(
+    #     ['git', 'log', '-1', '--format=%ci', branch],
+    #     stdout=subprocess.PIPE, encoding='utf-8')
+    # last_commit_name = subprocess.run(
+    #     ['git', 'log', '-1', '--format=%aN', branch],
+    #     stdout=subprocess.PIPE, encoding='utf-8')
+    # last_commit_email = subprocess.run(
+    #     ['git', 'log', '-1', '--format=%aE', branch],
+    #     stdout=subprocess.PIPE, encoding='utf-8')
+    # dest_dict[branch] = (
+    #     last_commit_date.stdout.strip(),
+    #     last_commit_name.stdout.strip(),
+    #     last_commit_email.stdout.strip())
 
 
 def get_branches(target, merged=True):
@@ -84,9 +90,9 @@ def get_branches(target, merged=True):
         branches = get_branch_list(target, git_filter='--no-merged')
     os.chdir(get_target_repo())
     dest_dict = dict()
+
     for branch in branches:
         threading.Thread(target=get_git_data_runner, args=(branch, dest_dict)).start()
-
     while threading.active_count() > 1:
         pass
 
