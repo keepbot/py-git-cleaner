@@ -15,7 +15,7 @@ from setuptools import find_packages, setup, Command
 NAME = 'git-cleaner'
 MAIN_PACKAGE = 'git_cleaner'
 DESCRIPTION = 'Cleanup merged branches with notification to last committer.'
-URL = 'https://github.com/keepbot/py-git-cleaner'
+URL = 'https://github.com/d-k-ivanov/py-git-cleaner'
 EMAIL = 'd.k.ivanov@live.com'
 AUTHOR = 'Dmitriy Ivanov'
 REQUIRES_PYTHON = '>=3.5.0'
