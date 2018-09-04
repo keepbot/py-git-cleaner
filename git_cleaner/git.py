@@ -62,7 +62,7 @@ def get_branch_list(target, git_filter='--merged'):
 
 def get_git_data_runner(branch, dest_dict: dict):
     output = subprocess.run(
-        ['git', 'log', '-1', '--no-merges', '--format=%ci;%aN;%aE', branch],
+        ['git', 'log', '-1', '--no-merges', '--first-parent', '--format=%ci;%aN;%aE', branch],
         stdout=subprocess.PIPE, encoding='utf-8')
     last_commit_date, last_commit_name, last_commit_email = output.stdout.strip().split(';')
     dest_dict[branch] = (last_commit_date, last_commit_name, last_commit_email)
