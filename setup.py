@@ -18,7 +18,7 @@ DESCRIPTION = 'Cleanup merged branches with notification to last committer.'
 URL = 'https://github.com/d-k-ivanov/py-git-cleaner'
 EMAIL = 'd.k.ivanov@live.com'
 AUTHOR = 'Dmitriy Ivanov'
-REQUIRES_PYTHON = '>=3.5.0'
+REQUIRES_PYTHON = '>=3.6.0'
 VERSION = None
 
 # What packages are required for this module to be executed?

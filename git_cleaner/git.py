@@ -54,7 +54,7 @@ def get_branch_list(target, git_filter='--merged'):
     result_list = list()
     os.chdir(get_target_repo())
     result = subprocess.run(['git', 'branch', '-a', git_filter, target], stdout=subprocess.PIPE, encoding='utf-8')
-    for line in result.stdout.split('\n'):
+    for line in result.stdout.splitlines():
         if git_cleaner.filters.is_remote(line.strip()) and not git_cleaner.filters.is_protected(line.strip()):
             result_list.append(line.strip())
     return result_list
@@ -162,5 +162,5 @@ def delete_branch(branch):
         stdout=subprocess.PIPE, encoding='utf-8')
     message = {}
     message['subj'] = '[Git-Cleaner] Outdated branch was removed from bitbucket'
-    message['body'] = deletion_report
+    message['body'] = '[deleted] ' + branch
     send_message(message, CONFIG['email_error'])
