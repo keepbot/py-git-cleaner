@@ -157,7 +157,7 @@ def remove_branches(target='master', age=180, merged=True):
 
 def delete_branch(branch):
     ''' Delete branch '''
-    deletion_report = subprocess.run(
+    subprocess.run(
         ['git', 'push', 'origin', '--delete', branch[15:]],
         stdout=subprocess.PIPE, encoding='utf-8')
     message = {}
