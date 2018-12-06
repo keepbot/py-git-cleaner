@@ -101,7 +101,7 @@ def list_branches(target='master', age=0, merged=True):
 
 
 def notify_developers(target='master', age=180, merged=True):
-    '''  Nnotify developers about outdated branches '''
+    '''  Notify developers about outdated branches '''
     fmt_message = git_cleaner.formats.fmt_notification_message
     url = ("https://" + CONFIG['git_provider'] + "/" + CONFIG['git_user'] + "/" + CONFIG['git_repo_name'])
 
