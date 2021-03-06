@@ -17,7 +17,7 @@ MAIN_PACKAGE = 'git_cleaner'
 DESCRIPTION = 'Cleanup merged branches with notification to last committer.'
 URL = 'https://github.com/d-k-ivanov/py-git-cleaner'
 EMAIL = 'd.k.ivanov@live.com'
-AUTHOR = 'Dmitriy Ivanov'
+AUTHOR = 'Dmitry Ivanov'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = None
 
